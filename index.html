@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Чат з Липучкою</title>
+<meta name="description" content="Міні-гра LetMe/teens: втримати своє «ні», коли тиснуть.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧲</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="viewport">
+  <div id="stage">
+
+    <!-- ===== Список чатів ===== -->
+    <section id="view-list" class="view">
+      <header class="list-head">
+        <div class="brand">LetMe<span>/teens</span></div>
+        <div class="crumbs">Суд щоденних справ · Зала 3 «Коли тиснуть»</div>
+      </header>
+      <h1 class="list-title">Чати Липучки <span class="mag-inline" id="list-mag"></span></h1>
+      <p class="list-sub">Липучка пише вам у різних ситуаціях. Хто з захисників утримає своє «ні»?</p>
+      <div class="chat-grid" id="chat-grid"></div>
+    </section>
+
+    <!-- ===== Чат ===== -->
+    <section id="view-chat" class="view">
+      <div class="ctx">
+        <span class="place-pill" id="ctx-place"></span>
+        <p class="ctx-text" id="ctx-text"></p>
+      </div>
+
+      <div class="col-left">
+        <h2 class="col-title">Сила Липучки</h2>
+        <div class="power">
+          <div class="meter" id="meter">
+            <div class="seg" data-i="3"></div>
+            <div class="seg" data-i="2"></div>
+            <div class="seg" data-i="1"></div>
+            <div class="seg" data-i="0"></div>
+          </div>
+          <div class="magnet-zone">
+            <div class="field" id="field"><i></i><i></i><i></i></div>
+            <div class="big-magnet" id="big-magnet"></div>
+          </div>
+        </div>
+        <div class="round-pill" id="round-pill"></div>
+        <div class="win-card" id="win-card">
+          <div class="win-title">Липучка відклеїлась! 🎉</div>
+          <div class="win-sub">Ви 4 рази втримали своє&nbsp;«ні»</div>
+        </div>
+      </div>
+
+      <div class="phone" id="phone">
+        <div class="ph-status"><span id="ph-time">9:41</span><span class="ph-icons">📶 🔋</span></div>
+        <div class="ph-head">
+          <span class="ph-back">‹</span>
+          <div class="ph-ava" id="ph-ava"></div>
+          <div class="ph-who">
+            <div class="ph-name">Липучка 🧲</div>
+            <div class="ph-state" id="ph-state"><i class="online-dot"></i>у мережі</div>
+          </div>
+        </div>
+        <div class="ph-msgs" id="msgs"></div>
+        <div class="ph-input"><span class="ph-field">Повідомлення</span><span class="ph-mic">🎙️</span></div>
+      </div>
+
+      <div class="col-right">
+        <h2 class="col-title">Інструменти захисника</h2>
+        <ul class="tools">
+          <li>🔁 Платівка: «Моя відповідь — ні»</li>
+          <li>🚫 Не сперечаюся</li>
+          <li>🚶 Змінюю тему або йду</li>
+        </ul>
+        <div class="feedback" id="feedback"></div>
+      </div>
+
+      <div class="freeze" id="freeze">
+        <div class="freeze-card">
+          <div class="freeze-title">Стоп-кадр! ⏪</div>
+          <div class="freeze-text">Ой, Липучка прилипла! Перемотуємо назад — спробуємо ще раз?</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Частина Б: Редакція суду ===== -->
+    <section id="view-edit" class="view">
+      <header class="list-head">
+        <div class="brand">LetMe<span>/teens</span></div>
+        <div class="crumbs">Суд щоденних справ · Частина Б</div>
+      </header>
+      <h1 class="list-title">Редакція суду ✍️</h1>
+      <p class="list-sub" id="edit-sub"></p>
+      <div class="drafts" id="drafts"></div>
+    </section>
+
+    <div class="confetti" id="confetti"></div>
+
+    <div class="corner">
+      <span class="corner-hint" id="corner-hint">Відкрийте пульт у сусідній вкладці</span>
+      <button class="pult-link" id="pult-link" type="button" aria-label="Пульт"><span>🔗 Пульт</span><i class="pult-dot" id="pult-dot"></i></button>
+      <div class="pult-pop" id="pult-pop">
+        <a href="pult.html" target="lypuchka-pult" id="pop-open">Відкрити пульт у новій вкладці ↗</a>
+        <div id="pop-room"></div>
+        <div class="pop-keys">F — повний екран · Esc — до чатів · 1–4 — оцінка · Пробіл — пропустити «друкує…»</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" src="game.js"></script>
+</body>
+</html>
