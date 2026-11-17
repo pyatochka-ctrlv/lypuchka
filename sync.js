@@ -3,7 +3,7 @@
 // 2) Firebase Realtime Database через REST + Server-Sent Events — якщо задано config.js.
 //    rooms/{code}/out  — пише екран (state, beat), читає пульт
 //    rooms/{code}/in   — пише пульт (cmds, ping), читає екран
-import { CHANNEL_NAME } from "./scenarios.js";
+import { CHANNEL_NAME } from "./data.js";
 import { FIREBASE, ROOM_TTL_HOURS } from "./config.js";
 
 export const firebaseEnabled = !!(FIREBASE && FIREBASE.databaseURL);

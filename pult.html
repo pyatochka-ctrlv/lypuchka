@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Пульт тренера · Чат з Липучкою</title>
+<title>Пульт · Справа проти Липучки</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎛️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,99 +12,44 @@
 <link rel="stylesheet" href="pult.css">
 </head>
 <body>
-<header class="top">
-  <div class="conn" id="conn"><i></i><span>Шукаю екран гри…</span></div>
-  <div class="top-btns">
-    <a class="btn" id="open-screen" href="index.html" target="lypuchka-screen">🔗 Відкрити екран гри</a>
-    <button class="btn" id="sound" type="button">🔇 Звук вимк.</button>
-    <button class="btn ghost" id="new-lesson" type="button">Новий урок</button>
-  </div>
-</header>
+<div class="wrap">
+  <header class="top">
+    <span class="conn" id="conn" title="Екран гри"><i></i><span id="conn-t">екран…</span></span>
+    <span class="where" id="where">Заставка</span>
+    <button type="button" class="icon-btn" id="menu-btn" aria-label="Меню" aria-expanded="false">⚙️</button>
+  </header>
 
-<form class="room-bar" id="room-bar" hidden>
-  <label for="room-input">Код кімнати з екрана гри</label>
-  <input id="room-input" inputmode="numeric" pattern="\d{4}" maxlength="4" autocomplete="off" placeholder="0000">
-  <button class="btn" type="submit">Підключити</button>
-  <span class="room-state" id="room-state"></span>
-</form>
+  <main id="step" aria-live="polite"></main>
 
-<nav class="tabs" role="tablist">
-  <button type="button" class="tab on" data-tab="a" role="tab">Частина А · Чат</button>
-  <button type="button" class="tab" data-tab="b" role="tab">Частина Б · Редакція суду</button>
-</nav>
+  <details class="hint" id="hint">
+    <summary>💡 Підказка</summary>
+    <div id="hint-body"></div>
+  </details>
+</div>
 
-<main>
-  <section class="tab-pane on" id="tab-a">
-    <div class="layout">
-      <div class="main-col">
-        <section class="card">
-          <h2>Сценарій</h2>
-          <div class="scen-list" id="scen-list"></div>
-          <div class="row">
-            <button class="btn ghost" id="to-list" type="button">🏠 До списку чатів</button>
-            <button class="btn ghost" id="restart" type="button">↺ Почати цей чат заново</button>
-          </div>
-        </section>
-
-        <section class="card" id="round-card">
-          <h2 id="round-title">Раунд</h2>
-          <p class="phase" id="phase-text"></p>
-          <div class="row">
-            <button class="btn big primary" id="start" type="button">▶️ Липучка пише</button>
-            <button class="btn big" id="skip" type="button">⏭ Пропустити «друкує…»</button>
-          </div>
-          <h3>Що Липучка пише в цьому раунді</h3>
-          <ol class="plan" id="plan"></ol>
-          <details class="log-wrap">
-            <summary>Увесь чат</summary>
-            <ol class="log" id="log"></ol>
-          </details>
-        </section>
-
-        <section class="card" id="answer-card">
-          <h2 id="answer-title">Відповідь захисника</h2>
-          <form class="answer" id="answer-form">
-            <input id="answer-input" autocomplete="off" placeholder="Що сказала дитина?" enterkeyhint="send">
-            <button class="btn big primary" type="submit">Надіслати</button>
-          </form>
-          <div class="chips" id="chips"></div>
-          <div class="classify" id="classify">
-            <h3>Якою була відповідь?</h3>
-            <div class="cls-grid">
-              <button class="btn cls green" data-kind="green" type="button">🟢 Спокійне «ні»</button>
-              <button class="btn cls blue" data-kind="blue" type="button">🔵 Змінили тему / пішли</button>
-              <button class="btn cls yellow" data-kind="yellow" type="button">🟡 Довге пояснення</button>
-              <button class="btn cls red" data-kind="red" type="button">🔴 Поступилися</button>
-            </div>
-          </div>
-          <button class="btn big rewind" id="rewind" type="button">⏪ Перемотати</button>
-        </section>
+<div class="menu" id="menu" hidden>
+  <div class="menu-card" role="dialog" aria-modal="true" aria-label="Меню">
+    <div class="menu-head"><b>Меню</b><button type="button" class="icon-btn" id="menu-close" aria-label="Закрити">✕</button></div>
+    <button type="button" class="btn" id="m-sound">🔇 Звук вимкнено</button>
+    <a class="btn" id="m-open" href="index.html" target="sprava-screen">🔗 Відкрити екран гри</a>
+    <button type="button" class="btn" id="m-restart">↺ Почати заново</button>
+    <div class="confirm" id="m-confirm" hidden>
+      <p>Почати гру з заставки? Поточний прогрес зникне (його можна повернути кнопкою «↩ Назад»).</p>
+      <div class="row">
+        <button type="button" class="btn" id="m-no">Скасувати</button>
+        <button type="button" class="btn danger" id="m-yes">Так, заново</button>
       </div>
-
-      <aside class="side-col">
-        <section class="card cheat" id="cheat"></section>
-      </aside>
     </div>
-  </section>
-
-  <section class="tab-pane" id="tab-b">
-    <section class="card">
-      <h2>Редакція суду</h2>
-      <p class="muted">Діти не грають Липучку — вони її виправляють. Оберіть чат: його чернетки з'являться на екрані.</p>
-      <div class="scen-list compact" id="pb-scen"></div>
-      <button class="btn big primary" id="pb-show" type="button">📺 Показати Редакцію на екрані</button>
-    </section>
-    <div id="pb-drafts"></div>
-  </section>
-</main>
-
-<div class="modal" id="modal" hidden>
-  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <h2 id="modal-title">Почати новий урок?</h2>
-    <p>Позначки «✓ відклеїлась», поточний чат і переробки з «Редакції суду» зітруться. Екран повернеться до списку чатів.</p>
-    <div class="row">
-      <button class="btn big" id="modal-cancel" type="button">Скасувати</button>
-      <button class="btn big danger" id="modal-ok" type="button">Так, новий урок</button>
+    <form class="room" id="room" hidden>
+      <label for="room-input">Код кімнати з екрана гри</label>
+      <div class="row">
+        <input id="room-input" inputmode="numeric" pattern="\d{4}" maxlength="4" autocomplete="off" placeholder="0000">
+        <button class="btn" type="submit">Підключити</button>
+      </div>
+    </form>
+    <div class="keys">
+      <b>Гарячі клавіші на екрані гри</b>
+      F — повний екран · Пробіл — далі · 1–6 — обрати прийом · Esc — на початок
     </div>
   </div>
 </div>
